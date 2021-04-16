@@ -1,8 +1,9 @@
 .SearchForm {
   display: flex;
-  align-items: center;
   width: 400px;
   margin-bottom: 30px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .input {
@@ -21,10 +22,11 @@
 }
 
 .button {
-  display: inline-block;
+  // display: inline-block;
   height: 36px;
   font-size: 20px;
   border: 1px solid black;
+  color: tomato;
 
   opacity: 0.6;
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);

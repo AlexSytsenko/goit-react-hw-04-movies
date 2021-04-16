@@ -1,27 +1,36 @@
 import { Component } from 'react';
-import axios from 'axios';
 
-import MoviesList from '../components/MoviesList';
-import styles from './MoviesPage.module.scss';
+import Loader from 'react-loader-spinner';
 
 import SearchForm from '../components/SearchForm';
+import MoviesList from '../components/MoviesList';
+import api from '../utils/api';
+import styles from './MoviesPage.module.scss';
 
 class MoviesPage extends Component {
   state = {
     movies: [],
     searchQuery: null,
     isLoading: false,
+    error: '',
   };
 
   async componentDidUpdate(prevProps, prevState) {
-    if (prevState.searchQuery !== this.state.searchQuery) {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/trending/movie/week?api_key=0e6eebd27dfd68a7c4ec96f04756cc6c&page=1&language=en-US`,
-      );
+    const { searchQuery } = this.state;
 
-      this.setState({ movies: response.data.results });
+    if (prevState.searchQuery !== searchQuery) {
+      try {
+        this.setState({ isLoading: true });
+        this.setState({ error: '' });
 
-      console.log(response.data.results);
+        const response = await api.serchMovies(searchQuery);
+
+        this.setState({ movies: response.data.results });
+      } catch (err) {
+        this.setState({ error: err });
+      } finally {
+        this.setState({ isLoading: false });
+      }
     }
   }
 
@@ -30,11 +39,16 @@ class MoviesPage extends Component {
   };
 
   render() {
-    const { movies } = this.state;
+    const { movies, isLoading, error } = this.state;
 
     return (
       <div className={styles.MoviesPage}>
         <SearchForm onSubmit={this.handleSubmitForm} />
+        {isLoading && (
+          <Loader type="Puff" color="#00BFFF" height={100} width={100} />
+        )}
+        {error && <h2 className={styles.error}>{error.message}</h2>}
+
         {movies && <MoviesList dataMovies={this.state.movies} />}
       </div>
     );

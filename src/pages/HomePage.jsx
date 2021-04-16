@@ -1,28 +1,42 @@
 import { Component } from 'react';
-import axios from 'axios';
 
+import Loader from 'react-loader-spinner';
+import api from '../utils/api';
 import MoviesList from '../components/MoviesList';
+import styles from './HomePage.module.scss';
 
 class Home extends Component {
   state = {
     movies: [],
+    isLoading: false,
+    error: '',
   };
 
   async componentDidMount() {
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/trending/movie/week?api_key=0e6eebd27dfd68a7c4ec96f04756cc6c&page=1&language=en-US`,
-    );
+    try {
+      this.setState({ isLoading: true });
 
-    this.setState({ movies: response.data.results });
+      const response = await api.getTrendingMovies();
 
-    console.log(response.data.results);
+      this.setState({ movies: response.data.results });
+    } catch (err) {
+      this.setState({ error: err });
+    } finally {
+      this.setState({ isLoading: false });
+    }
   }
 
   render() {
+    const { isLoading, error } = this.state;
+
     return (
-      <>
+      <div className={styles.home}>
+        {isLoading && (
+          <Loader type="Puff" color="#00BFFF" height={100} width={100} />
+        )}
+        {error && <h2 className={styles.error}>{error.message}</h2>}
         <MoviesList title="Trending today" dataMovies={this.state.movies} />
-      </>
+      </div>
     );
   }
 }

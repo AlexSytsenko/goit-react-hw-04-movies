@@ -1,0 +1,12 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.card {
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.error {
+  color: red;
+}

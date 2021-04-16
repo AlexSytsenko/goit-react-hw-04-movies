@@ -1,5 +1,8 @@
 const MovieItem = ({ title, poster }) => {
-  console.log(poster);
+  // const location = useLocation();
+  // const needid = useRouteMatch();
+
+  // console.log(location);
 
   const imgUrl = `https://image.tmdb.org/t/p/w500/${poster}`;
   return (

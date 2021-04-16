@@ -27,10 +27,17 @@ const getMovieCast = id => {
   );
 };
 
+const getMovieReviews = id => {
+  return axios.get(
+    `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${apiKey}&language=${language}`,
+  );
+};
+
 // eslint-disable-next-line
 export default {
   getTrendingMovies,
   serchMovies,
   getMovieDetails,
   getMovieCast,
+  getMovieReviews,
 };

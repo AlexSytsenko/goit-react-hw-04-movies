@@ -1,11 +1,12 @@
 import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
+
 import routes from '../components/routes';
 import api from '../utils/api';
 import MovieCard from '../components/MovieCard';
 import AdditionalInfo from '../components/AdditionalInfo';
-import styles from './MovieDetailsPage.module.scss';
+import styles from './styles/MovieDetailsPage.module.scss';
 
 const MovieDetailsPage = () => {
   const history = useHistory();
@@ -39,12 +40,6 @@ const MovieDetailsPage = () => {
   const handleGoBack = () => {
     history.push(path || routes.home);
   };
-
-  // const handleGoBack = () => {
-  //   history.push({
-  //     pathname: '/',
-  //   });
-  // };
 
   return (
     <div className={styles.container}>

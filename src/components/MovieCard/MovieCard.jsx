@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import styles from './MovieCard.module.scss';
 
 const MovieCard = ({ data }) => {
@@ -27,6 +29,17 @@ const MovieCard = ({ data }) => {
       </div>
     </div>
   );
+};
+
+MovieCard.propTypes = {
+  data: PropTypes.shape({
+    poster_path: PropTypes.string,
+    genres: PropTypes.array,
+    title: PropTypes.string,
+    release_date: PropTypes.string,
+    vote_average: PropTypes.number,
+    overview: PropTypes.string,
+  }).isRequired,
 };
 
 export default MovieCard;

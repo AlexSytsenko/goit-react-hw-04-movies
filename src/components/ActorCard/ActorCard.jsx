@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import styles from './ActorCard.module.scss';
 import defaultImg from '../../images/default-person.png';
 
@@ -14,6 +16,13 @@ const ActorCard = ({ name, poster }) => {
   );
 };
 
-export default ActorCard;
+ActorCard.defaultProps = {
+  poster: null,
+};
 
-// const url = imgUrl ? `https://image.tmdb.org/t/p/w500/${imgUrl}` : defaultImg;
+ActorCard.propTypes = {
+  name: PropTypes.string.isRequired,
+  poster: PropTypes.string,
+};
+
+export default ActorCard;

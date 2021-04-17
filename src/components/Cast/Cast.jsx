@@ -48,5 +48,3 @@ const Cast = () => {
 };
 
 export default Cast;
-
-//id, name, profile_path

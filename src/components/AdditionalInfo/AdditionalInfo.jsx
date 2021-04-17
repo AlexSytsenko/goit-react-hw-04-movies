@@ -1,12 +1,13 @@
 import { Route, NavLink, useRouteMatch, Switch } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-
 import Loader from 'react-loader-spinner';
 
 import styles from './AdditionalInfo.module.scss';
 
-import Cast from '../Cast';
-import Reviews from '../Reviews';
+const Cast = lazy(() => import('../Cast' /* webpackChunkName: "Cast" */));
+const Reviews = lazy(() =>
+  import('../Reviews' /* webpackChunkName: "Reviews" */),
+);
 
 const AdditionalInfo = () => {
   const { url, path } = useRouteMatch();

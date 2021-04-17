@@ -3,7 +3,7 @@ import { Component } from 'react';
 import Loader from 'react-loader-spinner';
 import api from '../utils/api';
 import MoviesList from '../components/MoviesList';
-import styles from './HomePage.module.scss';
+import styles from './styles/HomePage.module.scss';
 
 class Home extends Component {
   state = {

@@ -1,11 +1,10 @@
 import { Component } from 'react';
-
 import Loader from 'react-loader-spinner';
 
 import SearchForm from '../components/SearchForm';
 import MoviesList from '../components/MoviesList';
 import api from '../utils/api';
-import styles from './MoviesPage.module.scss';
+import styles from './styles/MoviesPage.module.scss';
 
 class MoviesPage extends Component {
   state = {

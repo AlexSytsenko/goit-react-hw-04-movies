@@ -1,4 +1,4 @@
-// import styles from './ReviewItem.module.scss';
+import PropTypes from 'prop-types';
 
 const ReviewItem = ({ author, content }) => {
   return (
@@ -7,6 +7,11 @@ const ReviewItem = ({ author, content }) => {
       <p>{content}</p>
     </div>
   );
+};
+
+ReviewItem.propTypes = {
+  author: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
 };
 
 export default ReviewItem;

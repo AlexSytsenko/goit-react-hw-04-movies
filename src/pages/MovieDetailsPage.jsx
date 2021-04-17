@@ -15,12 +15,11 @@ const MovieDetailsPage = () => {
 
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
   const [movieDetails, setMovieDetails] = useState('');
-
-  // const imgUrl = `https://image.tmdb.org/t/p/w500/${poster}`;
+  const [path, setPath] = useState('');
 
   useEffect(() => {
+    setPath(location?.state?.from.pathname || '');
     setIsLoading(true);
 
     async function getData() {
@@ -38,7 +37,7 @@ const MovieDetailsPage = () => {
   }, []); // eslint-disable-line
 
   const handleGoBack = () => {
-    history.push(location?.state?.from || routes.home);
+    history.push(path || routes.home);
   };
 
   // const handleGoBack = () => {

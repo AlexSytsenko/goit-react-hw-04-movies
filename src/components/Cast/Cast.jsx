@@ -37,9 +37,9 @@ const Cast = () => {
       )}
       {error && <h2 className={styles.error}>{error.message}</h2>}
       <ul className={styles.list}>
-        {cast.map(item => (
-          <li className={styles.card} key={item.id}>
-            <ActorCard name={item.name} poster={item.profile_path} />
+        {cast.map(({ id, name, profile_path }) => (
+          <li className={styles.card} key={id}>
+            <ActorCard name={name} poster={profile_path} />
           </li>
         ))}
       </ul>

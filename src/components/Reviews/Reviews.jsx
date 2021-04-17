@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 
+import ReviewItem from '../ReviewItem';
 import api from '../../utils/api';
 import styles from './Reviews.module.scss';
 
@@ -19,7 +20,6 @@ const Reviews = () => {
       try {
         const response = await api.getMovieReviews(movieId);
 
-        console.log(response.data.results);
         setReviews(response.data.results);
       } catch (err) {
         setError(err);
@@ -36,17 +36,17 @@ const Reviews = () => {
         <Loader type="Puff" color="#00BFFF" height={80} width={80} />
       )}
       {error && <h2 className={styles.error}>{error.message}</h2>}
-      {reviews &&
-        ((
-          <ul className={styles.list}>
-            {reviews.map(({ id, author, content }) => (
-              <li className={styles.card} key={id}>
-                <h4>{author}</h4>
-                <p>{content}</p>
-              </li>
-            ))}
-          </ul>
-        ) || <p> Мы вам перезвоним</p>)}
+      {reviews.length > 0 ? (
+        <ul className={styles.list}>
+          {reviews.map(({ id, author, content }) => (
+            <li className={styles.card} key={id}>
+              <ReviewItem author={author} content={content} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>We don't have any reviews for this movie.</p>
+      )}
     </>
   );
 };

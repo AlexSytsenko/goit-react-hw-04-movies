@@ -1,4 +1,4 @@
-import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+import { useLocation, useHistory, useRouteMatch, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
 
@@ -17,10 +17,12 @@ const MovieDetailsPage = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [movieDetails, setMovieDetails] = useState('');
-  const [path, setPath] = useState('');
+  const [path, setPath] = useState(routes.home);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
-    setPath(location?.state?.from.pathname || '');
+    setPath(location?.state?.from.pathname);
+    setQuery(location.state?.query);
     setIsLoading(true);
 
     async function getData() {
@@ -37,9 +39,9 @@ const MovieDetailsPage = () => {
     getData();
   }, []); // eslint-disable-line
 
-  const handleGoBack = () => {
-    history.push(path || routes.home);
-  };
+  // const handleGoBack = () => {
+  //   history.push(path || routes.home);
+  // };
 
   return (
     <div className={styles.container}>
@@ -47,9 +49,16 @@ const MovieDetailsPage = () => {
         <Loader type="Puff" color="#00BFFF" height={100} width={100} />
       )}
       {error && <h2 className={styles.error}>{error.message}</h2>}
-      <button className={styles.btn__goBack} onClick={handleGoBack}>
-        Go back
-      </button>
+
+      <Link
+        to={{
+          pathname: path,
+          state: { query: query },
+        }}
+      >
+        <button className={styles.btn__goBack}>Go back</button>
+      </Link>
+
       {movieDetails && <MovieCard data={movieDetails} />}
       <AdditionalInfo />
     </div>

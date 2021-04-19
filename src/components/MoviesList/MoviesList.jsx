@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import MovieItem from '../MovieItem';
 import styles from './MoviesList.module.scss';
 
-const MoviesList = ({ title, dataMovies }) => {
+const MoviesList = ({ title, dataMovies, query }) => {
   const location = useLocation();
 
   return (
@@ -16,7 +16,7 @@ const MoviesList = ({ title, dataMovies }) => {
             <Link
               to={{
                 pathname: `movies/${id}`,
-                state: { from: location },
+                state: { from: location, query: query },
               }}
             >
               <MovieItem title={title} id={id} poster={poster_path} />

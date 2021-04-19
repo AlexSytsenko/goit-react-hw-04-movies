@@ -14,6 +14,12 @@ class MoviesPage extends Component {
     error: '',
   };
 
+  componentDidMount() {
+    if (this.props.location.state?.query) {
+      this.setState({ searchQuery: this.props.location.state.query });
+    }
+  }
+
   async componentDidUpdate(prevProps, prevState) {
     const { searchQuery } = this.state;
 
@@ -38,7 +44,7 @@ class MoviesPage extends Component {
   };
 
   render() {
-    const { movies, isLoading, error } = this.state;
+    const { movies, isLoading, error, searchQuery } = this.state;
 
     return (
       <div className={styles.MoviesPage}>
@@ -48,7 +54,9 @@ class MoviesPage extends Component {
         )}
         {error && <h2 className={styles.error}>{error.message}</h2>}
 
-        {movies && <MoviesList dataMovies={this.state.movies} />}
+        {movies && (
+          <MoviesList dataMovies={this.state.movies} query={searchQuery} />
+        )}
       </div>
     );
   }
